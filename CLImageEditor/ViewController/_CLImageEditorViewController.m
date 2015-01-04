@@ -26,6 +26,7 @@
     UIView *_bgView;
 }
 @synthesize toolInfo = _toolInfo;
+@synthesize toolOnLoad = _toolOnLoad;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -202,6 +203,14 @@
         _imageView = [UIImageView new];
         [_scrollView addSubview:_imageView];
         [self refreshImageView];
+    }
+    
+    if (self.toolOnLoad) {
+        CLImageToolInfo *tool = [self.toolInfo subToolInfoWithToolName:self.toolOnLoad recursive:YES];
+        if (tool) {
+            [self setupToolWithToolInfo:tool];
+        }
+        self.toolOnLoad = nil;
     }
 }
 
